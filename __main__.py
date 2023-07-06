@@ -6,6 +6,7 @@ from scraping.web_scraping import WebScraping
 
 load_dotenv ()
 HEADLESS = os.getenv ("HEADLESS")
+WAIT_SEC = os.getenv ("WAIT_SEC")
 
 CURRENT_FOLDER = os.path.dirname (__file__)
 USERS_PATH = os.path.join (CURRENT_FOLDER, "users.csv")
@@ -41,7 +42,7 @@ def main ():
         else:
             data.append ([user_name, "active", ""])
         
-        sleep (1)
+        sleep (WAIT_SEC)
         
 
 if __name__ == "__main__":
