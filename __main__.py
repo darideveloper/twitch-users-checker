@@ -50,7 +50,8 @@ def main ():
     with open (USERS_PATH, "w", encoding='utf-8') as file:
         csv_writer = csv.writer (file)
         csv_writer.writerows (data)
-        
+    
+    print ("Finish validation")
 
 if __name__ == "__main__":
     main()
