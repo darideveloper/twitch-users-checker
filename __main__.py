@@ -29,6 +29,10 @@ def main ():
     
     # Validate each user
     for user in users:
+        
+        if not user:
+            continue
+        
         user_name = user[0]
         print (f"Validating user: {user_name}...")
         
@@ -47,7 +51,7 @@ def main ():
         sleep (WAIT_SEC)
         
     # Save data in scv file
-    with open (USERS_PATH, "w", encoding='utf-8') as file:
+    with open (USERS_PATH, "w", encoding='utf-8', newline='') as file:
         csv_writer = csv.writer (file)
         csv_writer.writerows (data)
     
