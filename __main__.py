@@ -37,6 +37,9 @@ def main ():
     users = [user[0] for user in users]
     users = list (set (users))
     
+    # Sort users
+    users.sort ()
+    
     # activeate each user
     for user_name in users:
         
