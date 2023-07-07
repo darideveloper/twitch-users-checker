@@ -10,13 +10,16 @@ WAIT_SEC = int(os.getenv ("WAIT_SEC"))
 
 CURRENT_FOLDER = os.path.dirname (__file__)
 USERS_PATH = os.path.join (CURRENT_FOLDER, "users.csv")
+USERS_ACTIVE_PATH = os.path.join (CURRENT_FOLDER, "users_active.csv")
+USERS_INACTIVE_PATH = os.path.join (CURRENT_FOLDER, "users_inactive.csv")
 
 def main (): 
     
     # Start scraper
     scraper = WebScraping (headless=HEADLESS)
     
-    data = []
+    data_active = ["user", "status"]
+    data_inactive = ["user", "status", "error"]
     
     selectors = {
         "unable_account": '[data-a-target="core-error-message"]' 
@@ -27,14 +30,14 @@ def main ():
         csv_reader = csv.reader (file)
         users = list (csv_reader)
     
-    # Validate each user
+    # activeate each user
     for user in users:
         
         if not user:
             continue
         
         user_name = user[0]
-        print (f"Validating user: {user_name}...")
+        print (f"activeating user: {user_name}...")
         
         # Load twitdh page
         scraper.set_page (f"https://www.twitch.tv/{user_name}")
@@ -44,18 +47,23 @@ def main ():
         # Get error
         errors = scraper.get_texts (selectors["unable_account"])
         if errors:
-            data.append ([user_name, "inactive", errors[0]])
+            data_active.append ([user_name, "inactive", errors[0]])
         else:
-            data.append ([user_name, "active", ""])
+            data_active.append ([user_name, "active", ""])
         
         sleep (WAIT_SEC)
         
-    # Save data in scv file
-    with open (USERS_PATH, "w", encoding='utf-8', newline='') as file:
+    # Save data in scv files
+    with open (USERS_ACTIVE_PATH, "w", encoding='utf-8', newline='') as file:
         csv_writer = csv.writer (file)
-        csv_writer.writerows (data)
+        csv_writer.writerows (data_active)
+        
+    # Save data in scv files
+    with open (USERS_INACTIVE_PATH, "w", encoding='utf-8', newline='') as file:
+        csv_writer = csv.writer (file)
+        csv_writer.writerows (data_inactive)
     
-    print ("Finish validation")
+    print ("Finish activeation")
 
 if __name__ == "__main__":
     main()
