@@ -43,7 +43,7 @@ def main ():
     # activeate each user
     for user_name in users:
         
-        print (f"activeating user: {user_name}...")
+        print (f"chacking user: {user_name}...")
         
         # Load twitdh page
         scraper.set_page (f"https://www.twitch.tv/{user_name}")
