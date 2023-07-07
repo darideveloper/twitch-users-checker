@@ -18,8 +18,8 @@ def main ():
     # Start scraper
     scraper = WebScraping (headless=HEADLESS)
     
-    data_active = ["user", "status"]
-    data_inactive = ["user", "status", "error"]
+    data_active = [["user", "status"]]
+    data_inactive = [["user", "status", "error"]]
     
     selectors = {
         "unable_account": '[data-a-target="core-error-message"]' 
@@ -30,13 +30,16 @@ def main ():
         csv_reader = csv.reader (file)
         users = list (csv_reader)
     
+    # Skip empry recors
+    users = [user for user in users if user]
+    
+    # Get usernames and skip duplicated
+    users = [user[0] for user in users]
+    users = list (set (users))
+    
     # activeate each user
-    for user in users:
+    for user_name in users:
         
-        if not user:
-            continue
-        
-        user_name = user[0]
         print (f"activeating user: {user_name}...")
         
         # Load twitdh page
@@ -47,7 +50,7 @@ def main ():
         # Get error
         errors = scraper.get_texts (selectors["unable_account"])
         if errors:
-            data_active.append ([user_name, "inactive", errors[0]])
+            data_inactive.append ([user_name, "inactive", errors[0]])
         else:
             data_active.append ([user_name, "active", ""])
         
