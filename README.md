@@ -48,15 +48,22 @@ Project type: **client**
 
 The script get as input a csv file with a list of twitch account. 
 Using selenium, it check account by account in order to detect if the accounts are are active or not. 
-The final result its saved in the same csv file.
+The final result its saved in separated files
 
 ## Sample output data
+
+### users_active.csv
+| User | Status |
+| ----------- | ----------- |
+|lawlietjustice1|active|
+|metarc92|active|
+|kathysk7|active|
+
+
+### users_inactive.csv
 | User | Status | Details |
 | ----------- | ----------- | ----------- |
-|pedrtioasj|inactive|This channel is currently unavailable due to a violation of Twitch's Community Guidelines or Terms of Service.|
-|lawlietjustice1|active||
-|metarc92|active||
-|kathysk7|active||
+|pedrtioasj|active|This channel is currently unavailable due to a violation of Twitch's Community Guidelines or Terms of Service.|
 |darideveloper|active|This channel is currently unavailable due to a violation of Twitch's Community Guidelines or Terms of Service.|
 
 # Install
@@ -118,5 +125,6 @@ darideveloper
 
 * [X] Get users from csv file
 * [X] Check users accounts
-* [X] Save output in the same csv file
+* [X] Save output in separated files
+* [X] Skip duplicates
 
