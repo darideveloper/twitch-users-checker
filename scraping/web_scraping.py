@@ -13,6 +13,8 @@ class WebScraping ():
     """
     Class to manage and configure web browser
     """
+    
+    service = None
 
     def __init__(self, headless=False, time_out=0,
                  proxy_server="", proxy_port="", proxy_user="", proxy_pass="",
@@ -192,8 +194,9 @@ class WebScraping ():
                 "--disable-blink-features=AutomationControlled")
 
         # Set configuration to  and create instance
-        service = Service()
-        self.driver = webdriver.Chrome(service=service, options=options)
+        if not WebScraping.service:
+            WebScraping.service = Service()
+        self.driver = webdriver.Chrome(service=WebScraping.service, options=options)
 
     def __create_proxy_extesion__(self):
         """Create a proxy chrome extension"""
