@@ -69,7 +69,7 @@ def main ():
         csv_writer = csv.writer (file)
         csv_writer.writerows (data_inactive)
     
-    print ("Finish activeation")
+    print ("Finished")
 
 if __name__ == "__main__":
     main()
